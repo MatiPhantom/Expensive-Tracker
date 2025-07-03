@@ -6,8 +6,6 @@ import java.util.Set;
 
 
 public class Service {
-    Set<String> TOKENS= Set.of( "add", "delete", "list", "summary", "update" );
-    Set<String> COMMANDS = Set.of( "--description", "--amount", "list", "summary", "update" );
 
     List<Bill> listBills=new ArrayList<>();
 
@@ -61,6 +59,15 @@ public class Service {
         return listBills.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
     }
 
+    public void deleteBill(int id) {
+        Bill bill = getBill(id);
+        if (bill != null) {
+            listBills.remove(bill);
+            System.out.println("Bill deleted successfully (ID: " + bill.getId() + ")");
+        } else {
+            System.out.println("Bill with ID " + id + " not found.");
+        }
+    }
 
 
 }

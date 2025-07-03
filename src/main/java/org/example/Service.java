@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Service {
 
+
     List<Bill> listBills=new ArrayList<>();
 
     public void addBill(Bill bill) {
@@ -14,13 +15,29 @@ public class Service {
         System.out.println("Expensive added successfully (ID: " + bill.getId() + ")");
     }
 
+    public void validateArgumentsAdd(String[] arguments) {
+        boolean lengthValid = arguments.length == 5;
+        boolean descriptionValid = arguments[2].startsWith("\"") && arguments[2].endsWith("\"");
+        boolean lineValid = arguments[1].equals("--description") || arguments[3].equals("--amount");
+
+        if (lengthValid && descriptionValid && lineValid) {
+            String description = arguments[2].substring(1, arguments[2].length() - 1);
+            double amount = Double.parseDouble(arguments[4]);
+            Bill bill = new Bill(description, amount);
+            addBill(bill);
+        } else {
+            System.out.println("Missing required arguments: --description and --amount");
+        }
+    }
+
     public void listAllBills() {
         if (listBills.isEmpty()) {
             System.out.println("No bills in the list.");
         } else {
+            System.out.println("# ID\t Description\t\tAmount\t\tDate");
             for (Bill bill : listBills) {
-                System.out.println("ID: " + bill.getId() + ", Description: " + bill.getDescription() +
-                        ", Amount: " + bill.getAmount() + ", Date: " + bill.getDate());
+                System.out.println("# ID: " + bill.getId() + "\tDescription: " + bill.getDescription() +
+                        "\tAmount: " + bill.getAmount() + "\tDate: " + bill.getDate());
             }
         }
     }

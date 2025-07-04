@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public class Service {
-    List<Bill> listBills=new ArrayList<>();
-    final BillDAO billDao= new BillDAO();
+    private final  BillDAO billDao= new BillDAO();
+    private List<Bill> listBills=billDao.loadData();
 
     public void addBill(Bill bill) {
         listBills.add(bill);

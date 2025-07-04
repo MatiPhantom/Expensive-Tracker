@@ -36,6 +36,7 @@ public class BillDAO {
             if (!listBill.isEmpty()) {
                 int maxId = listBill.stream().mapToInt(Bill::getId).max().orElse(1);
                 Bill.setCOUNT(maxId + 1);
+                System.out.println("Data loaded successfully.");
             }
             return listBill;
         } catch (Exception e) {

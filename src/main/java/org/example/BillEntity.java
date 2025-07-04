@@ -9,6 +9,8 @@ public class BillEntity {
     private String date;
     private double amount;
 
+    public BillEntity() {
+    }
     public BillEntity(int id, String description, String date, double amount) {
         this.id = id;
         this.description = description;

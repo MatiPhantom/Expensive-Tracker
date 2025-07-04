@@ -1,22 +1,20 @@
 package org.example;
 
-import com.fasterxml.jackson.core.util.JacksonFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.FileWriter;
 import java.util.List;
 
-public class UtilJson {
+public class BillDAO {
 
     //Utilizando la librería Jackson para serializar y deserializar objetos a JSON.
     private static final ObjectMapper mapper=new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public static void save(List<Bill> listBill){
+    public void save(List<Bill> listBill){
         List<BillEntity> listBillEntity= listBill.stream().map(
                 bill -> new BillEntity(bill.getId(), bill.getDescription(), bill.getDate().toString(), bill.getAmount())
         ).toList();
-
         try(FileWriter file = new FileWriter("bills.json")) {
             String listJson= mapper.writeValueAsString(listBillEntity);
             file.write(listJson);

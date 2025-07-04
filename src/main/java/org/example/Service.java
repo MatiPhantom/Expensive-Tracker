@@ -3,15 +3,15 @@ package org.example;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 public class Service {
     List<Bill> listBills=new ArrayList<>();
+    final BillDAO billDao= new BillDAO();
 
     public void addBill(Bill bill) {
         listBills.add(bill);
-        UtilJson.save(listBills);
+        billDao.save(listBills);
         System.out.println("Expensive added successfully (ID: " + bill.getId() + ")");
     }
 

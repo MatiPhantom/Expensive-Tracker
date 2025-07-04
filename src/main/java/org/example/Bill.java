@@ -3,7 +3,7 @@ package org.example;
 import java.time.LocalDate;
 
 public class Bill {
-    public static int COUNT= 1;
+    private static int COUNT= 1;
 
     private int id;
     private String description;
@@ -46,5 +46,9 @@ public class Bill {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public void setCOUNT(int count) {
+        COUNT = count;
     }
 }

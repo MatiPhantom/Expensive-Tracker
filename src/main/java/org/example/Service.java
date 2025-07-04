@@ -1,17 +1,17 @@
 package org.example;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 
 public class Service {
-
-
     List<Bill> listBills=new ArrayList<>();
 
     public void addBill(Bill bill) {
         listBills.add(bill);
+        UtilJson.save(listBills);
         System.out.println("Expensive added successfully (ID: " + bill.getId() + ")");
     }
 
@@ -36,8 +36,8 @@ public class Service {
         } else {
             System.out.println("# ID\t Description\t\tAmount\t\tDate");
             for (Bill bill : listBills) {
-                System.out.println("# ID: " + bill.getId() + "\tDescription: " + bill.getDescription() +
-                        "\tAmount: " + bill.getAmount() + "\tDate: " + bill.getDate());
+                System.out.println("# "+bill.getId() + "\t" + bill.getDescription() +
+                        "\t" + bill.getAmount() + "\t" + bill.getDate());
             }
         }
     }
@@ -83,6 +83,17 @@ public class Service {
             System.out.println("Bill deleted successfully (ID: " + bill.getId() + ")");
         } else {
             System.out.println("Bill with ID " + id + " not found.");
+        }
+    }
+
+    public void save() {
+        try(FileWriter file = new FileWriter("bills.json")) {
+            for (Bill bill : listBills) {
+                file.write(bill.getId() + "," + bill.getDescription() + "," + bill.getAmount() + "," + bill.getDate() + "\n");
+            }
+            System.out.println("Bills saved successfully.");
+        } catch (Exception e) {
+            System.out.println("Error saving bills: " + e.getMessage());
         }
     }
 

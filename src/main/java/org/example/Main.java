@@ -17,7 +17,6 @@ public class Main {
             //Leyendo token
             String line = e.nextLine();
             String[] arguments = line.trim().split(" (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-            System.out.println("Received command: " + Arrays.toString(arguments));            System.out.println("Received command: " + Arrays.toString(arguments));
 
             if (!UtilCommands.validateCommands(arguments)) {
                 continue;

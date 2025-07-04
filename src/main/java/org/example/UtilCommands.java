@@ -32,7 +32,6 @@ public class UtilCommands {
     }
     public static boolean validateTokensSummary(String[] argumentsSummary) {
         if(!TOKENS_SUMMARY.contains(Set.of(argumentsSummary))) {
-            System.out.println("Invalid tokens. Available tokens for summary: " + TOKENS_SUMMARY);
             return false;
         }
         return true;

@@ -15,21 +15,6 @@ public class Service {
         System.out.println("Expensive added successfully (ID: " + bill.getId() + ")");
     }
 
-    public void validateArgumentsAdd(String[] arguments) {
-        boolean lengthValid = arguments.length == 5;
-        boolean descriptionValid = arguments[2].startsWith("\"") && arguments[2].endsWith("\"");
-        boolean lineValid = arguments[1].equals("--description") || arguments[3].equals("--amount");
-
-        if (lengthValid && descriptionValid && lineValid) {
-            String description = arguments[2].substring(1, arguments[2].length() - 1);
-            double amount = Double.parseDouble(arguments[4]);
-            Bill bill = new Bill(description, amount);
-            addBill(bill);
-        } else {
-            System.out.println("Missing required arguments: --description and --amount");
-        }
-    }
-
     public void listAllBills() {
         if (listBills.isEmpty()) {
             System.out.println("No bills in the list.");
@@ -66,6 +51,7 @@ public class Service {
         if (bill != null) {
             bill.setDescription(description);
             bill.setAmount(amount);
+            billDao.save(listBills);
             System.out.println("Bill updated successfully (ID: " + bill.getId() + ")");
         } else {
             System.out.println("Bill with ID " + id + " not found.");
@@ -80,22 +66,10 @@ public class Service {
         Bill bill = getBill(id);
         if (bill != null) {
             listBills.remove(bill);
+            billDao.save(listBills);
             System.out.println("Bill deleted successfully (ID: " + bill.getId() + ")");
         } else {
             System.out.println("Bill with ID " + id + " not found.");
         }
     }
-
-    public void save() {
-        try(FileWriter file = new FileWriter("bills.json")) {
-            for (Bill bill : listBills) {
-                file.write(bill.getId() + "," + bill.getDescription() + "," + bill.getAmount() + "," + bill.getDate() + "\n");
-            }
-            System.out.println("Bills saved successfully.");
-        } catch (Exception e) {
-            System.out.println("Error saving bills: " + e.getMessage());
-        }
-    }
-
-
 }

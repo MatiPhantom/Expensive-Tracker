@@ -48,7 +48,7 @@ public class Bill {
         this.amount = amount;
     }
 
-    public void setCOUNT(int count) {
+    public static void setCOUNT(int count) {
         COUNT = count;
     }
 }
